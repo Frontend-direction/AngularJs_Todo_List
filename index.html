@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="index.css" />
+    <script src="index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+    <!-- Task:
+1) implement adding tasks;+
+3) show number of remaining tasks; +
+4) on 'archive' click delete remaining tasks; +
+5) add button that removes individual tasks;+
+6) implement filter;+
+7) reformat code with to meet requirements of john papa style guide+
+ -->
+<div ng-app="app">
+    <h2>Todo</h2>
+    <div ng-controller="TodoCtrl as todoCtrl">
+      <input type="text" placeholder="filter tasks" ng-model="todoCtrl.filterTasks.text">
+      <br>
+      <span>  {{todoCtrl.remaining()}} remaining</span>
+   
+      <ul class="unstyled">
+        <li ng-repeat="todo in todoCtrl.todos | filter:todoCtrl.filterTasks.text">
+          <input type="checkbox" ng-model="todo.done">
+          <span class="done-{{todo.done}}">{{todo.text}}</span>
+          [<a href="" ng-click="todoCtrl.removeItem($index)">remove</a>]
+        </li>
+      </ul>
+      <form ng-submit="todoCtrl.addTodo()">
+        <input type="text" ng-model="todoCtrl.newItem" size="30" placeholder="add new todo here">
+        <input class="btn-primary" type="submit" value="add" ng-click="addTodo()">
+      </form>
+        <a href="" ng-click="todoCtrl.archive()">archive</a> 
+    </div>
+  </div>
+</body>
+</html>
